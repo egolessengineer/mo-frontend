@@ -124,10 +124,18 @@ const CreateNftPopup = ({
   ) => {
     try {
       setIsLoading(true);
-      let mintTx = await new TokenMintTransaction()
-        .setTokenId(tokenId)
-        .setMetadata([Buffer.from(metadata)])
-        .freezeWithSigner(signer);
+
+      const metadataBuffer = Buffer.from(metadata);  
+      const uint8ArrayMetadata = new Uint8Array(metadataBuffer.buffer, metadataBuffer.byteOffset, metadataBuffer.length);
+
+      // let mintTx = await new TokenMintTransaction()
+      //   .setTokenId(tokenId)
+      //   .setMetadata([Buffer.from(metadata)])
+      //   .freezeWithSigner(signer);
+      let mintTx = await new TokenMintTransaction()  
+      .setTokenId(tokenId)  
+      .setMetadata([uint8ArrayMetadata]) // Use Uint8Array here  
+      .freezeWithSigner(signer);  
 
       let resecpt = await (
         await mintTx.signWithSigner(signer)
