@@ -1,0 +1,60 @@
+name: Deploy test-app to CloudFront
+on:
+  push:
+    branches: [ dev ]
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    env:
+      BUCKET: mo-staging-frontend
+      DIST: build
+      REGION: us-east-1
+      DIST_ID: E2KIDQ4237F30T
+      REACT_APP_SERVER_URL: ${{ secrets.REACT_APP_SERVER_URL }}
+      REACT_APP_NFT_BASE_URL: ${{ secrets.REACT_APP_NFT_BASE_URL }}
+      REACT_APP_USDC_TOKEN_ID: ${{ secrets.REACT_APP_USDC_TOKEN_ID }}
+      REACT_APP_HEDERA_NETWORK: ${{ secrets.REACT_APP_HEDERA_NETWORK }}
+      REACT_APP_METADATA_ICON: ${{ secrets.REACT_APP_METADATA_ICON }}
+      REACT_APP_NODE_ENV: ${{ secrets.REACT_APP_NODE_ENV }}
+
+    steps:
+      - name: Add the dependencies
+        run: sudo apt update && sudo apt install build-essential -y
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.REGION }}
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.17.0'
+
+      - name: Install Dependencies
+        run: |
+          node --version
+          npm install
+      - name: Clear npm Cache
+        run: npm cache clean --force
+
+      - name: Build Static Website
+        run: |
+          npm run build
+        env:
+          CI: false
+
+      - name: Copy files to the production website with the AWS CLI
+        run: |
+          aws s3 sync --delete ${{ env.DIST }} s3://${{ env.BUCKET }}
+      - name: Copy files to the production website with the AWS CLI
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ env.DIST_ID }} \
+            --paths "/*"

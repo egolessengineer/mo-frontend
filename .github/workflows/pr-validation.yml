@@ -1,0 +1,31 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.17.0'
+
+      - name: Clear npm Cache
+        run: npm cache clean --force    
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Static Website
+        run: |
+          npm run build
+        env:
+          CI: false
