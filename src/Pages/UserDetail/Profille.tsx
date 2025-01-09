@@ -68,11 +68,19 @@ const Profille = ({ provideDetails }: any) => {
           </div>
         </div>
         <div className="flex flex-col space-y-[10px] justify-start mt-[20px]">
-          <HelperText icon={<img src="/Assets/Web.svg" alt="" />} 
-          label={provideDetails?.About?.portfolioLink.length !== 0? provideDetails?.About?.portfolioLink[0]: "N/A"} />
+          <HelperText
+            icon={<img src="/Assets/Web.svg" alt="" />}
+            label={
+              provideDetails?.About?.portfolioLink.length !== 0
+                ? provideDetails?.About?.portfolioLink[0]
+                : "N/A"
+            }
+          />
           <HelperText
             icon={<img src="/Assets/Message.svg" alt="" />}
-            label={"" || provideDetails?.id}
+            label={provideDetails?.id || ""}
+            // or, for clearer fallback, you could use:
+            // label={provideDetails?.id ?? "Default Label"}
           />
           <HelperText
             icon={<img src="/Assets/Phone.svg" alt="" />}

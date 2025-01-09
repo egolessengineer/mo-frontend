@@ -53,10 +53,12 @@ export const ProjectViewDetails = ({ viewProjectData }: any) => {
             </div>
 
             <Typography
-              label={viewProjectData?.ProjectDetails?.duration ?
-                (viewProjectData?.ProjectDetails?.duration +
-                  " " +
-                  viewProjectData?.ProjectDetails?.durationType) : "-"
+              label={
+                viewProjectData?.ProjectDetails?.duration
+                  ? viewProjectData?.ProjectDetails?.duration +
+                    " " +
+                    viewProjectData?.ProjectDetails?.durationType
+                  : "-"
               }
               type="p"
               FontSize="sm"
@@ -77,7 +79,7 @@ export const ProjectViewDetails = ({ viewProjectData }: any) => {
             </div>
 
             <Typography
-              label={viewProjectData?.assignedFundTo?.toLowerCase()|| "-"}
+              label={viewProjectData?.assignedFundTo?.toLowerCase() || "-"}
               type="p"
               FontSize="sm"
               color="primary"
@@ -120,11 +122,15 @@ export const ProjectViewDetails = ({ viewProjectData }: any) => {
             </div>
 
             <Typography
-              label={viewProjectData?.fundTransferType === "MilestoneCompleted" ? "Milestone Completed" : "Project Completed" || "-"}
+              label={
+                viewProjectData?.fundTransferType === "MilestoneCompleted"
+                  ? "Milestone Completed"
+                  : "Project Completed"
+              }
               type="p"
+              // fontSize="sm"
               FontSize="sm"
               color="primary"
-              variant={300}
             />
           </div>
         </div>
@@ -190,7 +196,6 @@ export const ProjectViewDetails = ({ viewProjectData }: any) => {
           FontSize="sm"
         />
 
-
         <div className="flex">
           <div className="mt-[10px]">
             <div className="flex">
@@ -216,40 +221,40 @@ export const ProjectViewDetails = ({ viewProjectData }: any) => {
 
       {/* //Release fund from ESCROW to CP */}
       <div className="flex flex-col md:flex-row space-y-[20px] md:space-y-0 justify-between mt-[20px] w-full gap-5">
-        {viewProjectData?.projectRole === "PURCHASER" && <div className="border rounded-[5px] border-text-gray-50 p-[10px] w-1/2 ">
-          <div className="flex">
-            <Typography
-              label="Release fund from Wallet to ESCROW"
-              type="h2"
-              classname="font-bold text-text-HeadLine-50"
-              FontSize="base"
-            />
-          </div>
+        {viewProjectData?.projectRole === "PURCHASER" && (
+          <div className="border rounded-[5px] border-text-gray-50 p-[10px] w-1/2 ">
+            <div className="flex">
+              <Typography
+                label="Release fund from Wallet to ESCROW"
+                type="h2"
+                classname="font-bold text-text-HeadLine-50"
+                FontSize="base"
+              />
+            </div>
 
-          <div className="flex justify-between mt-[10px]">
-            <div>
-              <Typography
-                type="h3"
-                label="Assign Fund to"
-                FontSize="sm"
-                color="primary"
-                variant={200}
-                classname="font-bold "
-              />
-              <Typography
-                type="p"
-                label={viewProjectData?.assignedFundTo?.toLowerCase() || "-"}
-                FontSize="sm"
-                color="primary"
-                variant={300}
-                classname="capitalize"
-              />
-            </div>
-            <div>
-              
+            <div className="flex justify-between mt-[10px]">
+              <div>
+                <Typography
+                  type="h3"
+                  label="Assign Fund to"
+                  FontSize="sm"
+                  color="primary"
+                  variant={200}
+                  classname="font-bold "
+                />
+                <Typography
+                  type="p"
+                  label={viewProjectData?.assignedFundTo?.toLowerCase() || "-"}
+                  FontSize="sm"
+                  color="primary"
+                  variant={300}
+                  classname="capitalize"
+                />
+              </div>
+              <div></div>
             </div>
           </div>
-        </div>}
+        )}
         <div className="border rounded-[5px] border-text-gray-50 p-[10px] w-1/2">
           <div className="flex ">
             <Typography
@@ -292,7 +297,13 @@ export const ProjectViewDetails = ({ viewProjectData }: any) => {
                 type="p"
                 color="primary"
                 variant={300}
-                label={viewProjectData?.fundTransferType ? viewProjectData?.fundTransferType === "MilestoneCompleted" ? 'Milestone Completed' : 'Project Completed' : "-"}
+                label={
+                  viewProjectData?.fundTransferType
+                    ? viewProjectData?.fundTransferType === "MilestoneCompleted"
+                      ? "Milestone Completed"
+                      : "Project Completed"
+                    : "-"
+                }
                 FontSize="sm"
               />
             </div>
