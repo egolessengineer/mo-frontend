@@ -75,7 +75,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   if (!hasRequiredRole(userRole, requiredRole)) {
     userRole === "PROVIDER"
       ? navigate("/myproject")
-      : userRole === "PURCHASER" ? navigate("/") : userRole === 'ADMIN' && navigate("/admin-analytics");
+      : userRole === "PURCHASER"
+      ? navigate("/")
+      : userRole === "ADMIN" && navigate("/admin-analytics");
   }
 
   return <Outlet />;
@@ -85,11 +87,11 @@ const ProtecteAuthRoute = ({ Component }: any) => {
   return token ? <Navigate to={"/redirect"} /> : <Outlet />;
 };
 function App() {
-  const { user } = AuthState();  
-  if (process.env.REACT_APP_NODE_ENV === 'production') {
-    console.log = () => { }
+  const { user } = AuthState();
+  if (process.env.REACT_APP_NODE_ENV === "production") {
+    console.log = () => {};
     // console.error = () => { }
-    console.debug = () => { }
+    console.debug = () => {};
   }
   return (
     <BrowserRouter>
@@ -154,10 +156,7 @@ function App() {
           <Route
             path="/admin-analytics"
             element={
-              <ProtectedRoute
-                requiredRole={["ADMIN"]}
-                userRole={user?.role}
-              >
+              <ProtectedRoute requiredRole={["ADMIN"]} userRole={user?.role}>
                 <Outlet />
               </ProtectedRoute>
             }
